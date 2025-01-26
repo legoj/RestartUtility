@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="{FA8A5007-BB05-4A8C-90EA-7F0E77F849EF}"
+              Name="AIGTKK Restart Utility 1.0"
+              Language="1033"
+              Version="1.0.0.1"
+              Manufacturer="AIGTKK"
+              UpgradeCode="E3F9398D-8C22-402F-AEB5-C7024106F54D" >
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             Platform="x64"
+             InstallScope="perMachine"
+             Keywords="Restart Utility"
+             Description="AIGTKK Restart Utility 1.0"
+             Comments="(c) AIGTKK.ES.EU-Engg"
+             Manufacturer="AIG Technologies-Japan" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CabinetTemplate="rsu{0}.cab"/>
+    <Property Id="ARPNOMODIFY">1</Property>
+    <Property Id="ARPCOMMENTS">Restart Utility serves as an alternative menu for system restart.</Property>
+    <Property Id="ARPCONTACT">AIGTKK.ES.Engineering.JoGelS</Property>
+
+    <Feature Id="RSUFull" Title="RSU Full Features" Level="1">
+      <ComponentGroupRef Id="RSUComponents" />
+      <ComponentGroupRef Id="RSUComponentJA" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="AIGDIR" Name="AIGTKK">
+          <Directory Id="RSUDIR" Name="RSU">
+             <Directory Id="RSUJADIR" Name="ja"/>
+          </Directory>  
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+
+  <Fragment>
+		<ComponentGroup Id="RSUComponents" Directory="RSUDIR" Source="src\rsu">
+      <Component Id="cmp_rsu_exe" Guid="{D84BC0B0-486F-400F-A198-1E5DCBE955E5}" >
+        <File Id="RestartUtility.exe" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="RSUComponentJA" Directory="RSUJADIR" Source="src\rsu\ja">
+      <Component Id="cmp_rsu_ja_dll" Guid="{918966F1-A8E0-4278-B916-E2DC1253C99D}">
+        <File Id="RestartUtility.resources.dll" KeyPath="yes" />        
+      </Component>
+    </ComponentGroup>      
+	</Fragment>
+</Wix>
